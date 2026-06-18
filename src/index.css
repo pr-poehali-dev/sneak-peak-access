@@ -1,7 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap&subset=cyrillic,cyrillic-ext,latin");
+/* ===================================================
+   СВАДЕБНЫЙ САЙТ — Александр & Дарья — 08.08.2026
+   Стиль: нежный бохо-шик, айвори, кружево, жемчуг
+   =================================================== */
 
-/* Kudry → Cormorant Garamond (рукописный, кудрявый serif с курсивом) */
-/* Felidae → Playfair Display (элегантный serif) */
+/* Шрифты: Cormorant Garamond (аналог Kudry — каллиграфический) + Inter */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -9,46 +12,52 @@
 
 @layer base {
   :root {
-    /* Wedding palette: white, cream, sage, warm brown */
-    --background: 40 30% 97%;
-    --foreground: 30 20% 18%;
+    /* ── Базовые цвета ── */
+    --background: 38 40% 97%; /* айвори-фон */
+    --foreground: 25 25% 20%; /* тёплый тёмный */
 
-    --card: 0 0% 100%;
-    --card-foreground: 30 20% 18%;
+    --card: 38 45% 98%;
+    --card-foreground: 25 25% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 30 20% 18%;
+    --popover: 38 45% 98%;
+    --popover-foreground: 25 25% 20%;
 
-    --primary: 148 28% 35%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 30 40% 38%; /* золотисто-коричневый */
+    --primary-foreground: 38 45% 98%;
 
     --secondary: 38 30% 93%;
-    --secondary-foreground: 30 20% 18%;
+    --secondary-foreground: 25 25% 20%;
 
-    --muted: 38 20% 91%;
-    --muted-foreground: 30 10% 48%;
+    --muted: 38 20% 92%;
+    --muted-foreground: 30 12% 50%;
 
-    --accent: 148 28% 35%;
+    --accent: 148 22% 48%; /* шалфей */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 38 20% 87%;
-    --input: 38 20% 87%;
-    --ring: 148 28% 35%;
+    --border: 36 28% 85%;
+    --input: 36 28% 88%;
+    --ring: 30 40% 38%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Wedding custom tokens */
-    --cream: 38 35% 94%;
-    --sage: 148 28% 35%;
-    --sage-light: 148 22% 55%;
-    --sage-pale: 148 18% 88%;
-    --warm-brown: 28 35% 40%;
-    --pearl: 36 25% 90%;
-    --lace: 36 40% 96%;
+    /* ── Брендовая палитра бохо ── */
+    --ivory: 38 50% 96%; /* слоновая кость */
+    --cream: 36 42% 92%; /* тёплый кремовый */
+    --blush: 350 35% 88%; /* пудрово-розовый */
+    --sage: 148 22% 48%; /* шалфейно-зелёный */
+    --sage-pale: 148 18% 90%;
+    --gold: 38 55% 52%; /* золото */
+    --gold-light: 40 60% 72%; /* светлое золото */
+    --warm-brown: 28 38% 36%; /* дерево */
+    --chocolate: 22 45% 28%; /* тёмный шоколад */
+    --pearl: 36 30% 88%; /* жемчуг */
+    --lace: 36 50% 97%; /* кружево */
+    --wood-bg: 30 35% 88%; /* деревянный фон */
 
+    /* sidebar — обязательные переменные */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -65,74 +74,211 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: "Inter", system-ui, sans-serif;
-  }
-
-  /* Kudry (аналог) → Cormorant Garamond Italic — для главных заголовков */
-  h1 {
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-style: italic;
-  }
-
-  /* Felidae (аналог) → Playfair Display — для подзаголовков и текста */
-  h2,
-  h3,
-  h4 {
-    font-family: "Playfair Display", Georgia, serif;
-  }
-
   html {
     scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+  }
+
+  /* Kudry → Cormorant Garamond (каллиграфический) */
+  .font-kudry,
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+  }
 }
 
-/* Lace decorative pattern via SVG background */
-.lace-border-top {
-  position: relative;
-}
-.lace-border-top::before {
+/* ══════════════════════════════════
+   КРУЖЕВНЫЕ УЗОРЫ (SVG-паттерны)
+══════════════════════════════════ */
+
+/* Верхний кружевной бордюр */
+.lace-top::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 24px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='24'%3E%3Cpath d='M0 24 Q10 8 20 24 Q30 8 40 24 Q50 8 60 24 Q70 8 80 24' fill='none' stroke='%23d4c9b0' stroke-width='1.5'/%3E%3Ccircle cx='0' cy='24' r='2' fill='%23d4c9b0'/%3E%3Ccircle cx='20' cy='24' r='2' fill='%23d4c9b0'/%3E%3Ccircle cx='40' cy='24' r='2' fill='%23d4c9b0'/%3E%3Ccircle cx='60' cy='24' r='2' fill='%23d4c9b0'/%3E%3Ccircle cx='80' cy='24' r='2' fill='%23d4c9b0'/%3E%3C/svg%3E");
+  height: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='32'%3E%3Cpath d='M0 32 Q10 10 20 22 Q30 34 40 22 Q50 10 60 22 Q70 34 80 22' fill='none' stroke='%23c9b99a' stroke-width='1'/%3E%3Ccircle cx='0' cy='32' r='2.5' fill='%23c9b99a' opacity='0.6'/%3E%3Ccircle cx='20' cy='22' r='2' fill='%23c9b99a' opacity='0.5'/%3E%3Ccircle cx='40' cy='22' r='2' fill='%23c9b99a' opacity='0.5'/%3E%3Ccircle cx='60' cy='22' r='2' fill='%23c9b99a' opacity='0.5'/%3E%3Ccircle cx='80' cy='22' r='2.5' fill='%23c9b99a' opacity='0.6'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
-  background-size: 80px 24px;
+  background-size: 80px 32px;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Eucalyptus branch decorative SVG accent */
-.eucalyptus-accent {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60' viewBox='0 0 120 60'%3E%3Cpath d='M10 50 Q30 20 60 30 Q90 40 110 10' fill='none' stroke='%235d8a6f' stroke-width='1.5' stroke-linecap='round'/%3E%3Cellipse cx='25' cy='32' rx='8' ry='5' fill='%235d8a6f' opacity='0.4' transform='rotate(-20 25 32)'/%3E%3Cellipse cx='45' cy='26' rx='8' ry='5' fill='%235d8a6f' opacity='0.4' transform='rotate(-10 45 26)'/%3E%3Cellipse cx='65' cy='30' rx='8' ry='5' fill='%235d8a6f' opacity='0.4' transform='rotate(5 65 30)'/%3E%3Cellipse cx='85' cy='24' rx='8' ry='5' fill='%235d8a6f' opacity='0.4' transform='rotate(15 85 24)'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
+/* Нижний кружевной бордюр */
+.lace-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='32'%3E%3Cpath d='M0 0 Q10 22 20 10 Q30 -2 40 10 Q50 22 60 10 Q70 -2 80 10' fill='none' stroke='%23c9b99a' stroke-width='1'/%3E%3Ccircle cx='0' cy='0' r='2.5' fill='%23c9b99a' opacity='0.6'/%3E%3Ccircle cx='20' cy='10' r='2' fill='%23c9b99a' opacity='0.5'/%3E%3Ccircle cx='40' cy='10' r='2' fill='%23c9b99a' opacity='0.5'/%3E%3Ccircle cx='60' cy='10' r='2' fill='%23c9b99a' opacity='0.5'/%3E%3Ccircle cx='80' cy='10' r='2.5' fill='%23c9b99a' opacity='0.6'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 80px 32px;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Pearl dot accent */
-.pearl-dot::after {
-  content: "◦";
+/* Нежный фоновый паттерн — точечная сетка */
+.dot-pattern {
+  background-image: radial-gradient(
+    circle,
+    hsl(var(--gold-light)) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  opacity: 0.2;
+}
+
+/* Деревянная текстура — полосатый градиент */
+.wood-texture {
+  background:
+    repeating-linear-gradient(
+      92deg,
+      transparent,
+      transparent 60px,
+      rgba(160, 110, 60, 0.04) 60px,
+      rgba(160, 110, 60, 0.04) 61px
+    ),
+    linear-gradient(180deg, hsl(var(--wood-bg)) 0%, hsl(30 30% 84%) 100%);
+}
+
+/* Кружевная рамка для карточек */
+.lace-card {
+  border: 1.5px solid hsl(var(--pearl));
+  box-shadow:
+    0 0 0 4px hsl(var(--ivory)),
+    0 0 0 5px hsl(var(--pearl)),
+    0 4px 24px rgba(160, 130, 80, 0.08);
+  border-radius: 1.25rem;
+  background: hsl(var(--lace));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Золотая кнопка в стиле деревянной таблички */
+.btn-wood {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--warm-brown)),
+    hsl(var(--chocolate))
+  );
+  color: hsl(var(--gold-light));
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  border: 1px solid hsl(var(--gold-light) / 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 3px 12px rgba(80, 50, 20, 0.25);
+  transition: all 0.3s ease;
+}
+.btn-wood:hover {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--chocolate)),
+    hsl(var(--warm-brown))
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 5px 18px rgba(80, 50, 20, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Кружевная кнопка на карту */
+.btn-map {
+  background: hsl(var(--ivory));
   color: hsl(var(--warm-brown));
-  margin: 0 0.5rem;
+  border: 1.5px solid hsl(var(--gold-light));
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+}
+.btn-map:hover {
+  background: hsl(var(--warm-brown));
+  color: hsl(var(--gold-light));
+  border-color: hsl(var(--warm-brown));
+}
+
+/* Поле ввода в кружевном стиле */
+.input-lace {
+  background: hsl(var(--lace));
+  border: 1.5px solid hsl(var(--pearl));
+  border-radius: 0.625rem;
+  padding: 0.75rem 1rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: hsl(var(--foreground));
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  width: 100%;
+  outline: none;
+}
+.input-lace:focus {
+  border-color: hsl(var(--gold));
+  box-shadow: 0 0 0 3px hsl(var(--gold) / 0.12);
+}
+.input-lace::placeholder {
+  color: hsl(var(--muted-foreground));
   opacity: 0.6;
 }
 
-/* Timer digit card */
-.timer-card {
-  background: white;
-  border: 1px solid hsl(var(--border));
-  border-radius: 0.75rem;
-  padding: 1rem 1.25rem;
-  min-width: 80px;
-  text-align: center;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* Smooth accordion animation */
-.faq-content {
+/* FAQ-контент анимация */
+.faq-body {
   overflow: hidden;
   transition:
-    max-height 0.35s ease,
-    opacity 0.35s ease;
+    max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
+}
+
+/* Жемчужная строка разделитель */
+.pearl-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.pearl-divider::before,
+.pearl-divider::after {
+  content: "";
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, hsl(var(--gold-light)));
+  opacity: 0.6;
+}
+.pearl-divider::after {
+  background: linear-gradient(to left, transparent, hsl(var(--gold-light)));
+}
+
+/* Анимации появления */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Таймер: цифры */
+.timer-digit {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  line-height: 1;
+  color: hsl(var(--warm-brown));
 }

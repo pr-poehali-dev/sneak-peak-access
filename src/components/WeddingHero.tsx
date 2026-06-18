@@ -1,142 +1,155 @@
-/* Шапка свадебного сайта: имена, дата, кружевной декор, ветки эвкалипта */
+/* ─── Шапка: Александр & Дарья, кружево, жемчуг, айвори ─── */
 import { useEffect, useState } from "react"
 
-export function WeddingHero() {
-  const [visible, setVisible] = useState(false)
+/* Кружевной угол-декор */
+const LaceCorner = ({ flip = false }: { flip?: boolean }) => (
+  <svg
+    viewBox="0 0 160 160"
+    fill="none"
+    className="absolute w-32 md:w-48 opacity-25 pointer-events-none"
+    style={{ top: 0, [flip ? "right" : "left"]: 0, transform: flip ? "scaleX(-1)" : undefined }}
+  >
+    <path d="M0 0 Q80 0 80 80 Q80 0 160 0" stroke="#c9b48a" strokeWidth="1.2" fill="none"/>
+    <path d="M0 0 Q55 0 55 55" stroke="#c9b48a" strokeWidth="0.8" fill="none" opacity="0.7"/>
+    <path d="M0 0 Q35 0 35 35" stroke="#c9b48a" strokeWidth="0.6" fill="none" opacity="0.5"/>
+    <path d="M0 0 Q18 0 18 18" stroke="#c9b48a" strokeWidth="0.5" fill="none" opacity="0.4"/>
+    {[[22,2],[44,2],[66,2],[88,2],[110,2],[132,2],[2,22],[2,44],[2,66],[2,88],[2,110],[2,132],[30,30],[55,15],[15,55]].map(([x,y],i)=>(
+      <circle key={i} cx={x} cy={y} r="2.2" fill="#d4c4a0" opacity="0.55"/>
+    ))}
+    <circle cx="10" cy="10" r="5" stroke="#c9b48a" strokeWidth="0.8" fill="none" opacity="0.5"/>
+    <circle cx="10" cy="10" r="2" fill="#c9b48a" opacity="0.35"/>
+  </svg>
+)
 
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 100)
-    return () => clearTimeout(t)
-  }, [])
+/* Ботанические листья — боковой декор */
+const Leaves = ({ right = false }: { right?: boolean }) => (
+  <svg viewBox="0 0 180 320" fill="none"
+    className="absolute bottom-0 w-24 md:w-36 opacity-[0.18] pointer-events-none"
+    style={{ [right ? "right" : "left"]: "1%", transform: right ? "scaleX(-1)" : undefined }}>
+    <path d="M90 320 Q85 240 75 170 Q65 100 55 40" stroke="#6b9b7a" strokeWidth="2" strokeLinecap="round"/>
+    {[
+      {cx:72,cy:275,rx:18,ry:10,r:-32},{cx:68,cy:230,rx:17,ry:10,r:-22},
+      {cx:66,cy:188,rx:16,ry:9,r:-14},{cx:63,cy:148,rx:15,ry:8,r:-8},
+      {cx:60,cy:110,rx:14,ry:8,r:-3},{cx:57,cy:75,rx:13,ry:7,r:3},
+    ].map((l,i)=>(
+      <ellipse key={i} cx={l.cx} cy={l.cy} rx={l.rx} ry={l.ry}
+        fill="#6b9b7a" opacity={0.5-i*0.06}
+        transform={`rotate(${l.r} ${l.cx} ${l.cy})`}/>
+    ))}
+  </svg>
+)
+
+export function WeddingHero() {
+  const [vis, setVis] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setVis(true), 100); return () => clearTimeout(t) }, [])
+
+  const cl = (delay: number) =>
+    `transition-all duration-700 ${vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`
+    + ` [transition-delay:${delay}ms]`
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-lace px-4 py-16">
+    <section
+      id="hero"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 py-24"
+      style={{ background: "linear-gradient(160deg, hsl(38 55% 97%) 0%, hsl(36 45% 95%) 100%)" }}
+    >
+      {/* Точечный фоновый паттерн */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: "radial-gradient(circle, hsl(40 55% 75% / 0.18) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }}/>
 
-      {/* Фоновый паттерн — нежная сетка */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `radial-gradient(circle, hsl(var(--warm-brown)) 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
-        }}
-      />
+      {/* Кружевные бордюры */}
+      <div className="absolute top-0 left-0 right-0 h-8 lace-top" />
+      <div className="absolute bottom-0 left-0 right-0 h-8 lace-bottom" />
 
-      {/* Декор: ветки эвкалипта SVG — левый угол */}
-      <svg
-        className="absolute top-0 left-0 w-48 md:w-72 opacity-30 pointer-events-none"
-        viewBox="0 0 200 180"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M10 170 Q50 100 100 80 Q140 60 180 20" stroke="#5d8a6f" strokeWidth="2" strokeLinecap="round"/>
-        <ellipse cx="40" cy="130" rx="14" ry="9" fill="#5d8a6f" opacity="0.5" transform="rotate(-35 40 130)"/>
-        <ellipse cx="65" cy="108" rx="14" ry="9" fill="#5d8a6f" opacity="0.45" transform="rotate(-25 65 108)"/>
-        <ellipse cx="90" cy="90" rx="14" ry="9" fill="#5d8a6f" opacity="0.4" transform="rotate(-15 90 90)"/>
-        <ellipse cx="120" cy="72" rx="13" ry="8" fill="#5d8a6f" opacity="0.35" transform="rotate(-5 120 72)"/>
-        <ellipse cx="150" cy="50" rx="12" ry="7" fill="#5d8a6f" opacity="0.3" transform="rotate(10 150 50)"/>
-      </svg>
+      {/* Угловые кружевные орнаменты */}
+      <LaceCorner/>
+      <LaceCorner flip/>
 
-      {/* Декор: ветки эвкалипта — правый угол (зеркальный) */}
-      <svg
-        className="absolute top-0 right-0 w-48 md:w-72 opacity-30 pointer-events-none"
-        viewBox="0 0 200 180"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ transform: "scaleX(-1)" }}
-      >
-        <path d="M10 170 Q50 100 100 80 Q140 60 180 20" stroke="#5d8a6f" strokeWidth="2" strokeLinecap="round"/>
-        <ellipse cx="40" cy="130" rx="14" ry="9" fill="#5d8a6f" opacity="0.5" transform="rotate(-35 40 130)"/>
-        <ellipse cx="65" cy="108" rx="14" ry="9" fill="#5d8a6f" opacity="0.45" transform="rotate(-25 65 108)"/>
-        <ellipse cx="90" cy="90" rx="14" ry="9" fill="#5d8a6f" opacity="0.4" transform="rotate(-15 90 90)"/>
-        <ellipse cx="120" cy="72" rx="13" ry="8" fill="#5d8a6f" opacity="0.35" transform="rotate(-5 120 72)"/>
-        <ellipse cx="150" cy="50" rx="12" ry="7" fill="#5d8a6f" opacity="0.3" transform="rotate(10 150 50)"/>
-      </svg>
+      {/* Листья */}
+      <Leaves/>
+      <Leaves right/>
 
-      {/* Кружевной декор сверху */}
-      <svg className="absolute top-0 left-0 right-0 w-full opacity-25 pointer-events-none" height="40" viewBox="0 0 400 40" preserveAspectRatio="none">
-        <path d="M0 40 Q25 10 50 40 Q75 10 100 40 Q125 10 150 40 Q175 10 200 40 Q225 10 250 40 Q275 10 300 40 Q325 10 350 40 Q375 10 400 40" fill="none" stroke="#c8b89a" strokeWidth="1.5"/>
-        {[0,50,100,150,200,250,300,350,400].map(x => (
-          <circle key={x} cx={x} cy={40} r={2.5} fill="#c8b89a"/>
-        ))}
-      </svg>
+      {/* ── Центральный блок ── */}
+      <div className="relative z-10 text-center max-w-2xl mx-auto select-none">
 
-      {/* Центральный блок */}
-      <div className="relative z-10 text-center max-w-2xl mx-auto">
-        {/* Маленький подзаголовок */}
-        <p
-          className={`text-xs tracking-[0.35em] uppercase text-sage font-sans mb-6 transition-all duration-700 delay-100 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
+        {/* Жемчужная нить сверху */}
+        <div className={`flex justify-center gap-1.5 mb-7 ${cl(100)}`}>
+          {[4,5,6,8,6,9,8,6,9,8,6,5,4].map((s,i)=>(
+            <div key={i} className="rounded-full shadow-sm"
+              style={{ width:s, height:s, background:"linear-gradient(135deg,#f0e8d5,#d8c9a8)", border:"1px solid #e0cda8" }}/>
+          ))}
+        </div>
+
+        {/* Подзаголовок */}
+        <p className={`text-xs tracking-[0.45em] uppercase font-sans mb-6 ${cl(180)}`}
+          style={{ color:"hsl(var(--warm-brown) / 0.65)" }}>
           Приглашение на бракосочетание
         </p>
 
-        {/* Жемчужное кольцо-разделитель */}
-        <div className={`flex items-center justify-center gap-3 mb-6 transition-all duration-700 delay-200 ${visible ? "opacity-100" : "opacity-0"}`}>
-          <div className="h-px w-16 bg-gradient-to-r from-transparent to-warm-brown opacity-40"/>
-          <span className="text-warm-brown text-xl">◈</span>
-          <div className="h-px w-16 bg-gradient-to-l from-transparent to-warm-brown opacity-40"/>
+        {/* Имя «Александр» */}
+        <h1 className={`font-kudry leading-[0.95] ${cl(280)}`}
+          style={{
+            fontSize:"clamp(3rem,9vw,6.5rem)",
+            color:"hsl(var(--warm-brown))",
+            fontStyle:"italic", fontWeight:400,
+            textShadow:"0 2px 16px hsl(38 55% 52% / 0.2)",
+          }}>
+          Александр
+        </h1>
+
+        {/* Амперсанд + линии */}
+        <div className={`flex items-center justify-center gap-4 my-3 ${cl(360)}`}>
+          <div className="flex-1 h-px max-w-[100px]"
+            style={{ background:"linear-gradient(to right, transparent, hsl(var(--gold-light)))" }}/>
+          <span className="font-kudry text-3xl md:text-4xl"
+            style={{ color:"hsl(var(--gold))", fontStyle:"normal" }}>❧</span>
+          <div className="flex-1 h-px max-w-[100px]"
+            style={{ background:"linear-gradient(to left, transparent, hsl(var(--gold-light)))" }}/>
         </div>
 
-        {/* Главный заголовок */}
-        <h1
-          className={`font-serif font-normal leading-tight text-foreground mb-4 transition-all duration-900 delay-300 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-          style={{ fontSize: "clamp(2.8rem, 8vw, 5.5rem)" }}
-        >
-          Александр
-          <span className="block italic text-sage" style={{ fontSize: "clamp(1.8rem, 5vw, 3.2rem)", lineHeight: 1.4 }}>
-            &amp; Дарья
-          </span>
+        {/* Имя «Дарья» */}
+        <h1 className={`font-kudry leading-[0.95] ${cl(440)}`}
+          style={{
+            fontSize:"clamp(3rem,9vw,6.5rem)",
+            color:"hsl(var(--warm-brown))",
+            fontStyle:"italic", fontWeight:400,
+            textShadow:"0 2px 16px hsl(38 55% 52% / 0.2)",
+          }}>
+          Дарья
         </h1>
 
         {/* Дата */}
-        <div
-          className={`transition-all duration-700 delay-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-        >
-          <p className="font-serif text-2xl md:text-3xl text-warm-brown tracking-widest mb-2">
+        <div className={`mt-8 ${cl(520)}`}>
+          <p className="font-kudry tracking-[0.22em] font-normal"
+            style={{ fontSize:"clamp(1.6rem,4vw,2.4rem)", color:"hsl(var(--gold))" }}>
             08 · 08 · 2026
           </p>
-          <p className="text-sm text-muted-foreground font-sans tracking-[0.25em] uppercase">
+          <p className="mt-1.5 text-xs tracking-[0.4em] uppercase font-sans"
+            style={{ color:"hsl(var(--muted-foreground))" }}>
             Нижнекамск
           </p>
         </div>
 
-        {/* Жемчужный разделитель снизу */}
-        <div className={`flex items-center justify-center gap-2 mt-8 transition-all duration-700 delay-700 ${visible ? "opacity-100" : "opacity-0"}`}>
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="rounded-full bg-sage-light"
-              style={{
-                width: i === 2 ? 10 : i === 1 || i === 3 ? 7 : 5,
-                height: i === 2 ? 10 : i === 1 || i === 3 ? 7 : 5,
-                opacity: i === 2 ? 0.9 : 0.5,
-              }}
-            />
+        {/* Жемчужная нить снизу */}
+        <div className={`flex justify-center gap-1.5 mt-7 ${cl(600)}`}>
+          {[4,5,6,8,6,9,8,6,9,8,6,5,4].map((s,i)=>(
+            <div key={i} className="rounded-full shadow-sm"
+              style={{ width:s, height:s, background:"linear-gradient(135deg,#f0e8d5,#d8c9a8)", border:"1px solid #e0cda8" }}/>
           ))}
         </div>
 
-        {/* Кнопка прокрутки вниз */}
-        <a
-          href="#locations"
-          className={`inline-flex flex-col items-center gap-2 mt-12 text-xs tracking-widest uppercase text-muted-foreground hover:text-sage transition-colors duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
-        >
+        {/* Стрелка вниз */}
+        <a href="#locations"
+          className={`inline-flex flex-col items-center gap-1.5 mt-10 text-xs tracking-widest uppercase font-sans ${cl(700)}`}
+          style={{ color:"hsl(var(--muted-foreground))" }}>
           Подробнее
           <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7"/>
           </svg>
         </a>
       </div>
-
-      {/* Кружевной декор снизу */}
-      <svg className="absolute bottom-0 left-0 right-0 w-full opacity-25 pointer-events-none" height="40" viewBox="0 0 400 40" preserveAspectRatio="none">
-        <path d="M0 0 Q25 30 50 0 Q75 30 100 0 Q125 30 150 0 Q175 30 200 0 Q225 30 250 0 Q275 30 300 0 Q325 30 350 0 Q375 30 400 0" fill="none" stroke="#c8b89a" strokeWidth="1.5"/>
-        {[0,50,100,150,200,250,300,350,400].map(x => (
-          <circle key={x} cx={x} cy={0} r={2.5} fill="#c8b89a"/>
-        ))}
-      </svg>
     </section>
   )
 }

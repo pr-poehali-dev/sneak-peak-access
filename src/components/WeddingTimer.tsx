@@ -1,84 +1,93 @@
-/* Таймер обратного отсчёта до 08.08.2026 13:20 */
+/* ─── Таймер обратного отсчёта — кружевная рамка, винтажные цифры ─── */
 import { useEffect, useState } from "react"
 
-const WEDDING_DATE = new Date("2026-08-08T13:20:00")
+const TARGET = new Date("2026-08-08T13:20:00")
 
-function getTimeLeft() {
-  const now = new Date()
-  const diff = WEDDING_DATE.getTime() - now.getTime()
-  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+function getLeft() {
+  const d = TARGET.getTime() - Date.now()
+  if (d <= 0) return { days:0, hours:0, minutes:0, seconds:0 }
   return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
+    days:    Math.floor(d / 86400000),
+    hours:   Math.floor(d / 3600000) % 24,
+    minutes: Math.floor(d / 60000)   % 60,
+    seconds: Math.floor(d / 1000)    % 60,
   }
 }
 
-function pad(n: number) {
-  return String(n).padStart(2, "0")
-}
+const pad = (n: number) => String(n).padStart(2,"0")
 
 export function WeddingTimer() {
-  const [time, setTime] = useState(getTimeLeft())
-
-  useEffect(() => {
-    const interval = setInterval(() => setTime(getTimeLeft()), 1000)
-    return () => clearInterval(interval)
-  }, [])
+  const [t, setT] = useState(getLeft)
+  useEffect(() => { const id = setInterval(() => setT(getLeft()), 1000); return () => clearInterval(id) }, [])
 
   const units = [
-    { value: time.days, label: "Дней" },
-    { value: time.hours, label: "Часов" },
-    { value: time.minutes, label: "Минут" },
-    { value: time.seconds, label: "Секунд" },
+    { v: t.days,    l:"Дней"   },
+    { v: t.hours,   l:"Часов"  },
+    { v: t.minutes, l:"Минут"  },
+    { v: t.seconds, l:"Секунд" },
   ]
 
   return (
-    <section id="timer" className="py-20 px-4 bg-sage relative overflow-hidden">
-      {/* Лёгкий фоновый паттерн */}
-      <div
-        className="absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-          backgroundSize: "24px 24px",
-        }}
-      />
-
-      {/* Декор: ветки по углам */}
-      <svg className="absolute bottom-0 left-0 w-40 opacity-20 pointer-events-none" viewBox="0 0 160 120" fill="none">
-        <path d="M10 110 Q50 60 100 40 Q130 28 155 10" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-        <ellipse cx="40" cy="85" rx="12" ry="7" fill="white" opacity="0.5" transform="rotate(-30 40 85)"/>
-        <ellipse cx="70" cy="62" rx="12" ry="7" fill="white" opacity="0.4" transform="rotate(-15 70 62)"/>
-        <ellipse cx="105" cy="42" rx="11" ry="6" fill="white" opacity="0.3" transform="rotate(5 105 42)"/>
-      </svg>
-      <svg className="absolute bottom-0 right-0 w-40 opacity-20 pointer-events-none" viewBox="0 0 160 120" fill="none" style={{transform:"scaleX(-1)"}}>
-        <path d="M10 110 Q50 60 100 40 Q130 28 155 10" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-        <ellipse cx="40" cy="85" rx="12" ry="7" fill="white" opacity="0.5" transform="rotate(-30 40 85)"/>
-        <ellipse cx="70" cy="62" rx="12" ry="7" fill="white" opacity="0.4" transform="rotate(-15 70 62)"/>
-        <ellipse cx="105" cy="42" rx="11" ry="6" fill="white" opacity="0.3" transform="rotate(5 105 42)"/>
-      </svg>
+    <section id="timer" className="relative py-20 px-4 overflow-hidden"
+      style={{ background:"linear-gradient(160deg, hsl(var(--cream)) 0%, hsl(var(--wood-bg)) 100%)" }}>
+      {/* Кружевные бордюры */}
+      <div className="absolute top-0 left-0 right-0 lace-top"/>
+      <div className="absolute bottom-0 left-0 right-0 lace-bottom"/>
+      {/* Точечный паттерн */}
+      <div className="absolute inset-0" style={{
+        backgroundImage:"radial-gradient(circle, hsl(38 40% 60% / 0.12) 1px, transparent 1px)",
+        backgroundSize:"22px 22px",
+      }}/>
 
       <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <p className="text-xs tracking-[0.35em] uppercase text-white/70 mb-3">До нашего торжества</p>
-        <h2 className="font-serif text-3xl md:text-4xl text-white font-normal mb-10">
-          Осталось совсем немного
+        {/* Заголовок */}
+        <h2 className="font-kudry italic text-4xl md:text-5xl mb-3"
+          style={{ color:"hsl(var(--warm-brown))" }}>
+          Осталось до свадьбы
         </h2>
+        {/* Жемчуг */}
+        <div className="flex justify-center gap-1.5 mb-10">
+          {[3,4,5,7,5,4,5,7,5,4,3].map((s,i)=>(
+            <div key={i} className="rounded-full shadow-sm"
+              style={{ width:s,height:s, background:"linear-gradient(135deg,#f0e8d5,#d8c9a8)", border:"1px solid #e0cda8" }}/>
+          ))}
+        </div>
 
-        {/* Карточки с числами */}
+        {/* Карточки цифр */}
         <div className="flex justify-center gap-3 md:gap-5 flex-wrap">
-          {units.map((unit) => (
-            <div key={unit.label} className="timer-card bg-white/10 border-white/20 backdrop-blur-sm rounded-xl px-4 md:px-6 py-4 text-center min-w-[72px]">
-              <p className="font-serif text-3xl md:text-5xl text-white leading-none mb-1">
-                {pad(unit.value)}
+          {units.map(({v,l}) => (
+            <div key={l} className="flex flex-col items-center">
+              {/* Кружевная рамка карточки */}
+              <div className="relative px-4 md:px-7 py-4 md:py-5"
+                style={{
+                  background:"hsl(var(--lace))",
+                  borderRadius:"1.1rem",
+                  border:"1.5px solid hsl(var(--pearl))",
+                  boxShadow:"0 0 0 3px hsl(var(--ivory)), 0 0 0 4.5px hsl(var(--pearl) / 0.5), 0 6px 20px rgba(100,70,30,0.1)",
+                  minWidth:"76px",
+                }}>
+                {/* Маленькие кружевные угловые точки */}
+                {[[4,4],[4,-4],[-4,4],[-4,-4]].map(([dx,dy],i)=>(
+                  <div key={i} className="absolute w-1.5 h-1.5 rounded-full"
+                    style={{ background:"hsl(var(--gold-light))", opacity:0.6,
+                      top: dy > 0 ? "auto" : "6px", bottom: dy > 0 ? "6px" : "auto",
+                      left: dx > 0 ? "auto" : "6px", right: dx > 0 ? "6px" : "auto" }}/>
+                ))}
+                <p className="timer-digit text-4xl md:text-6xl font-kudry" style={{ color:"hsl(var(--warm-brown))" }}>
+                  {pad(v)}
+                </p>
+              </div>
+              <p className="mt-2 text-xs tracking-widest uppercase font-sans"
+                style={{ color:"hsl(var(--muted-foreground))" }}>
+                {l}
               </p>
-              <p className="text-xs tracking-widest uppercase text-white/60">{unit.label}</p>
             </div>
           ))}
         </div>
 
         {/* Дата */}
-        <p className="mt-10 font-serif text-xl text-white/80 italic">
+        <p className="mt-10 font-kudry italic text-xl md:text-2xl"
+          style={{ color:"hsl(var(--gold))" }}>
           08 августа 2026, 13:20
         </p>
       </div>
