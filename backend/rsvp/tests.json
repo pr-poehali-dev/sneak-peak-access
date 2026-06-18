@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "POST valid RSVP",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "firstName": "Иван",
+        "lastName": "Тестов",
+        "attendance": "Да, на церемонии и на банкете",
+        "drinks": ["Шампанское", "Вино белое"],
+        "comment": "Всё отлично!"
+      },
+      "expectedStatus": 200
+    },
+    {
+      "name": "POST missing fields",
+      "method": "POST",
+      "path": "/",
+      "body": { "firstName": "Анна" },
+      "expectedStatus": 400
+    }
+  ]
+}

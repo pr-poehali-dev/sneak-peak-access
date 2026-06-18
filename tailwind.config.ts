@@ -19,8 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['DM Sans', 'DM Sans Fallback', 'system-ui', 'sans-serif'],
-				serif: ['Cormorant Garamond', 'Cormorant Garamond Fallback', 'Georgia', 'serif'],
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+				serif: ['Playfair Display', 'Georgia', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -66,12 +66,18 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom Japandi colors
-				sand: 'hsl(var(--sand))',
+				// Wedding palette
+				cream: 'hsl(var(--cream))',
 				sage: 'hsl(var(--sage))',
-				terracotta: 'hsl(var(--terracotta))',
-				indigo: 'hsl(var(--indigo))',
-				stone: 'hsl(var(--stone))',
+				'sage-light': 'hsl(var(--sage-light))',
+				'sage-pale': 'hsl(var(--sage-pale))',
+				'warm-brown': 'hsl(var(--warm-brown))',
+				pearl: 'hsl(var(--pearl))',
+				lace: 'hsl(var(--lace))',
+				// backward compat
+				sand: 'hsl(var(--cream))',
+				terracotta: 'hsl(var(--warm-brown))',
+				stone: 'hsl(148 22% 55%)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -80,20 +86,12 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
 				}
 			},
 			animation: {
