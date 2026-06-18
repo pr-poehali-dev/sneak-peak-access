@@ -5,7 +5,7 @@ export function Contact() {
   const [isVisible, setIsVisible] = useState(false)
   const [formState, setFormState] = useState({
     name: "",
-    email: "",
+    guests: "",
     message: "",
   })
   const sectionRef = useRef<HTMLElement>(null)
@@ -44,22 +44,22 @@ export function Contact() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
-              Контакты
+              Подтверждение
             </p>
             <h2
               className={`font-serif text-4xl md:text-5xl lg:text-6xl font-light text-foreground mb-8 text-balance transition-all duration-1000 delay-200 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              Готовы начать?
+              Будете с нами?
             </h2>
             <p
               className={`text-muted-foreground leading-relaxed mb-12 max-w-md transition-all duration-1000 delay-300 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              Каждое осмысленное пространство начинается с разговора. Расскажите о вашем видении,
-              и мы вместе найдём способ воплотить его в жизнь.
+              Пожалуйста, подтвердите своё присутствие до 1 августа 2026 года.
+              Нам важно знать, что вы будете рядом в этот особенный день.
             </p>
 
             {/* Contact Info */}
@@ -69,14 +69,14 @@ export function Contact() {
               }`}
             >
               <div>
-                <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">Почта</p>
-                <a href="mailto:hello@example.com" className="text-foreground hover:text-sage transition-colors">
-                  hello@example.com
+                <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">Телефон для связи</p>
+                <a href="tel:+79990000000" className="text-foreground hover:text-sage transition-colors">
+                  +7 999 000-00-00
                 </a>
               </div>
               <div>
-                <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">Локация</p>
-                <p className="text-foreground">Москва и Санкт-Петербург</p>
+                <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">Место торжества</p>
+                <p className="text-foreground">Усадьба «Тихий сад», Московская область</p>
               </div>
             </div>
           </div>
@@ -103,22 +103,22 @@ export function Contact() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-xs tracking-widest uppercase text-muted-foreground mb-3">
-                  Почта
+                <label htmlFor="guests" className="block text-xs tracking-widest uppercase text-muted-foreground mb-3">
+                  Количество гостей
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  value={formState.email}
-                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                  type="text"
+                  id="guests"
+                  value={formState.guests}
+                  onChange={(e) => setFormState({ ...formState, guests: e.target.value })}
                   className="w-full bg-transparent border-b border-border py-3 text-foreground placeholder:text-muted-foreground/50 focus:border-sage focus:outline-none transition-colors"
-                  placeholder="ваш@email.com"
+                  placeholder="Например: 2 (я и супруг/а)"
                   required
                 />
               </div>
               <div>
                 <label htmlFor="message" className="block text-xs tracking-widest uppercase text-muted-foreground mb-3">
-                  Сообщение
+                  Пожелания
                 </label>
                 <textarea
                   id="message"
@@ -126,15 +126,14 @@ export function Contact() {
                   onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                   rows={4}
                   className="w-full bg-transparent border-b border-border py-3 text-foreground placeholder:text-muted-foreground/50 focus:border-sage focus:outline-none transition-colors resize-none"
-                  placeholder="Расскажите о вашем проекте..."
-                  required
+                  placeholder="Особые пожелания по меню, аллергии или тёплые слова для нас..."
                 />
               </div>
               <button
                 type="submit"
                 className="group inline-flex items-center gap-3 px-8 py-4 bg-sage text-primary-foreground text-sm tracking-widest uppercase hover:bg-sage/90 transition-all duration-500"
               >
-                Отправить
+Я приду
                 <svg
                   className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1"
                   fill="none"

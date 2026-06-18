@@ -47,7 +47,7 @@ export function Philosophy() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
-              Наша философия
+              Наша история
             </p>
 
             <h2
@@ -55,10 +55,10 @@ export function Philosophy() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              Искусство
-              <span className="italic"> осознанной</span>
+              Как
+              <span className="italic"> всё</span>
               <br />
-              жизни
+              началось
             </h2>
 
             <div
@@ -67,13 +67,13 @@ export function Philosophy() {
               }`}
             >
               <p>
-                Мы верим, что каждое пространство таит в себе потенциал для преображения. Не через добавление,
-                а через бережное вычитание — открывая то, что всегда было предначертано.
+                Мы встретились восемь лет назад тёплым осенним вечером — случайно, за чашкой кофе у общих друзей.
+                С первого разговора стало ясно: это надолго.
               </p>
               <p>
-                Наш подход вдохновлён японской концепцией <em className="text-foreground">ма</em> — глубокой
-                красотой пустоты — и скандинавским пониманием
-                <em className="text-foreground"> хюгге</em>, этого ощущения уютного умиротворения.
+                С тех пор было много дорог, городов и тихих вечеров вдвоём. А этой весной Михаил сделал
+                предложение <em className="text-foreground">на берегу моря</em>, и теперь мы готовы сказать
+                друг другу <em className="text-foreground">«да»</em> в кругу самых близких.
               </p>
             </div>
 
@@ -84,16 +84,16 @@ export function Philosophy() {
               }`}
             >
               <div>
-                <p className="font-serif text-3xl md:text-4xl text-sage">12</p>
-                <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">Лет опыта</p>
-              </div>
-              <div>
-                <p className="font-serif text-3xl md:text-4xl text-sage">140+</p>
-                <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">Проектов</p>
-              </div>
-              <div>
                 <p className="font-serif text-3xl md:text-4xl text-sage">8</p>
-                <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">Наград</p>
+                <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">Лет вместе</p>
+              </div>
+              <div>
+                <p className="font-serif text-3xl md:text-4xl text-sage">14</p>
+                <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">Стран вдвоём</p>
+              </div>
+              <div>
+                <p className="font-serif text-3xl md:text-4xl text-sage">1</p>
+                <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">Особенный день</p>
               </div>
             </div>
           </div>
